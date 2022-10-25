@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+  {% include 'user/partials/nav.html' %}
+  {% include 'user/partials/dashboard.html' %}
+{% else %}
+  {% include 'user/pages/default-home.html' %}
+{% endif %}
+
+{% endblock %}

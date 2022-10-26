@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load render_table from django_tables2 %}
+
+{% block title %}Department{% endblock %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+
+{% include 'user/partials/nav.html' %}
+<!-- Department main content -->
+<div class="p-2">
+    <div class="ml-6">
+        <ol class="list-reset flex">
+            <li class="text-gray-500">Modules</li>
+            <li><span class="text-gray-500 mx-2">/</span></li>
+            <li class="text-gray-500">Department</li>
+        </ol>
+    </div>
+    <div class="flex w-full">
+        <div class="flex-auto w-3/4 p-6 items-center justify-center">
+            <div class="block p-6 rounded-lg shadow-lg bg-white w-2/3">
+                {% render_table table %}
+            </div>
+        </div>
+        <div class="flex-auto w-1/4 p-6 items-center justify-center">
+            <div class="block p-6 rounded-lg shadow-lg bg-white w-2/3">
+                <form method="POST" action="/department/" id="form_department">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" id="btn_department" class="px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">Add Department</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% else %}
+{% include 'user/pages/default-home.html' %}
+{% endif %}
+
+{% endblock %}

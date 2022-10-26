@@ -1,8 +1,9 @@
 from socket import fromshare
 from django import forms
 from .models import Department
+from django.views.generic import ListView
 
-class DeptForm(forms.ModelForm):
+class DeptForm(forms.ModelForm, ListView):
     class Meta:
         model = Department
         widgets = {

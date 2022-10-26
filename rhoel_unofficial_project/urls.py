@@ -23,5 +23,8 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('', TemplateView.as_view(template_name='user/home.html'), name='home'),
     path('__reload__/', include('django_browser_reload.urls')),
-    path('department/', views.department, name='department')
+    path('department/', views.department, name='department'),
+    path('department/<int:id>', views.update_department, name='update_department'),
+    path('department/<int:id>/delete/', views.delete_department, name='delete_department'),
+    path('department/<int:id>/delete/confirmed', views.delete_department_confirmed)
 ]

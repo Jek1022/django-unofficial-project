@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_browser_reload',
-    'rhoel_unofficial_project'
+    'rhoel_unofficial_project',
+    'django_tables2'
 ]
 
 MIDDLEWARE = [

@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load render_table from django_tables2 %}
+
+{% block title %}Department{% endblock %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+
+{% include 'user/partials/nav.html' %}
+<!-- Department main content -->
+<div class="p-2">
+    <div class="ml-6">
+        <ol class="list-reset flex">
+            <li class="text-gray-500">Modules</li>
+            <li><span class="text-gray-500 mx-2">/</span></li>
+            <li class="text-gray-500">Department</li>
+            <li><span class="text-gray-500 mx-2">/</span></li>
+            <li class="text-gray-500">Delete</li>
+        </ol>
+    </div>
+    <div class="flex justify-center">
+        <div class="block p-6 rounded-lg shadow-lg bg-white max-w-sm">
+            <h5 class="text-gray-900 text-xl leading-tight font-medium mb-2">Confirm</h5>
+            <p class="text-gray-700 text-base mb-4">
+                Are you sure you want to delete <b>{{ department.name }}</b>?
+            </p>
+            <div class="flex">
+                <form method="POST" action="confirmed">
+                    {% csrf_token %}
+                    <button type="submit" class="inline-block px-6 py-2.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out">Yes, Delete</button>
+                </form>
+                <a href="{% url 'department' %}" class="ml-2"><button type="submit" class="inline-block px-6 py-2.5 bg-transparent text-blue-600 font-medium text-xs leading-tight uppercase rounded hover:text-blue-700 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none focus:ring-0 active:bg-gray-200 transition duration-150 ease-in-out">No, Cancel</button></a>
+            </div>
+        </div>
+    </div>
+    
+</div>
+{% else %}
+{% include 'user/pages/default-home.html' %}
+{% endif %}
+
+{% endblock %}

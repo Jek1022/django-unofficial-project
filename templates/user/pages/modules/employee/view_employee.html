@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load render_table from django_tables2 %}
+{% load humanize %}
+
+{% block title %}Employee{% endblock %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+
+{% include 'user/partials/nav.html' %}
+<!-- Department main content -->
+<div class="p-2">
+    <div class="ml-6">
+        <ol class="list-reset flex">
+            <li class="text-gray-500">Modules</li>
+            <li><span class="text-gray-500 mx-2">/</span></li>
+            <li class="text-gray-500">Employee</li>
+            <li><span class="text-gray-500 mx-2">/</span></li>
+            <li class="text-gray-500">View</li>
+        </ol>
+    </div>
+    <div class="flex justify-center">
+        <div class="flex justify-center">
+            <div class="block rounded-lg shadow-lg bg-white max-w-sm text-center">
+                <div class="py-3 px-6 border-b border-gray-300">
+                    <h5 class="text-gray-900 text-xl font-medium mb-2">{{ employee.name }}</h5>
+                </div>
+                <div class="p-6">
+                    <h5 class="text-gray-900 text-xl font-normal mb-2">{{ employee.department }}</h5>
+                    <p class="text-gray-700 text-base mb-4">
+                        {{ employee.email }}
+                    </p>
+                    <a href="{% url 'user_employee' %}" class="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">Back</a>
+                </div>
+                <div class="py-3 px-6 border-t border-gray-300 text-gray-600">
+                    Created {{ employee.created_at|naturaltime }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% else %}
+{% include 'user/pages/default-home.html' %}
+{% endif %}
+
+{% endblock %}

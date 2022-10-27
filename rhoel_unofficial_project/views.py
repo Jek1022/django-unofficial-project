@@ -11,8 +11,7 @@ def department(request):
         form = DeptForm(request.POST)
         if form.is_valid():
             form.save()
-    else:
-        form = DeptForm
+    form = DeptForm
     table = DeptTable(Department.objects.all())
     table.paginate(page=request.GET.get('page', 1), per_page=5)
     return render(request, 'user/pages/modules/department/department.html', {'form': form, 'table': table})
@@ -37,3 +36,4 @@ def delete_department_confirmed(request, id):
     department = Department.objects.get(id=id)
     department.delete()
     return HttpResponseRedirect(reverse('department'))
+

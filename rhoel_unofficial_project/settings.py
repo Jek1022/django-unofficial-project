@@ -40,9 +40,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'django_browser_reload',
-    'rhoel_unofficial_project',
     'django_tables2',
-    'users.apps.UsersConfig'
+    'rhoel_unofficial_project',
+    'users.modules.department.apps.DepartmentConfig',
+    'users.modules.employee.apps.EmployeeConfig',
 ]
 
 MIDDLEWARE = [

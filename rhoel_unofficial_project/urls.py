@@ -16,8 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic.base import TemplateView
-from . import views
-from users import views as user_views
+from users.modules.department import views as department_views
+from users.modules.employee import views as employee_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,17 +25,17 @@ urlpatterns = [
     path('', TemplateView.as_view(template_name='user/home.html'), name='home'),
     path('__reload__/', include('django_browser_reload.urls')),
 
-    path('department/', views.department, name='department'),
-    path('department/create/', views.create_department, name='add_department'),
-    path('department/<int:id>/update/', views.update_department, name='update_department'),
-    path('department/<int:id>/read/', views.view_department, name='view_department'),
-    path('department/<int:id>/delete/', views.delete_department, name='delete_department'),
-    path('department/<int:id>/delete/confirmed', views.delete_department_confirmed),
+    path('department/', department_views.department, name='department'),
+    path('department/create/', department_views.create_department, name='add_department'),
+    path('department/<int:id>/update/', department_views.update_department, name='update_department'),
+    path('department/<int:id>/read/', department_views.view_department, name='view_department'),
+    path('department/<int:id>/delete/', department_views.delete_department, name='delete_department'),
+    path('department/<int:id>/delete/confirmed', department_views.delete_department_confirmed),
 
-    path('employee/', user_views.employee, name='user_employee'),
-    path('employee/create/', user_views.create_employee, name='add_employee'),
-    path('employee/<int:id>/update/', user_views.update_employee, name='update_employee'),
-    path('employee/<int:id>/read/', user_views.view_employee, name='view_employee'),
-    path('employee/<int:id>/delete/', user_views.delete_employee, name='user_delete_employee'),
-    path('employee/<int:id>/delete/confirmed', user_views.delete_employee_confirmed),
+    path('employee/', employee_views.employee, name='user_employee'),
+    path('employee/create/', employee_views.create_employee, name='add_employee'),
+    path('employee/<int:id>/update/', employee_views.update_employee, name='update_employee'),
+    path('employee/<int:id>/read/', employee_views.view_employee, name='view_employee'),
+    path('employee/<int:id>/delete/', employee_views.delete_employee, name='delete_employee'),
+    path('employee/<int:id>/delete/confirmed', employee_views.delete_employee_confirmed),
 ]

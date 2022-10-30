@@ -1,0 +1,26 @@
+{% if messages %}
+    {% for message in messages %}
+  
+    <div id="toast" class="hidden fixed top-5 left-5 px-5 items-center border-r-8 border-gray-700 bg-white drop-shadow-lg">
+        <p class="text-sm p-1 text-neutral-900 bg-gray-100 rounded shadow-md">
+            {% if message.tags == 'warning' %}
+                <span class="mr-2 inline-block px-3 py-1 rounded-full bg-gray-700 text-white font-extrabold">!</span>
+            {% else %}
+                <span class="mr-2 inline-block px-3 py-1 rounded-full bg-gray-700 text-white font-extrabold">i</span>
+            {% endif %}
+            {{ message }}
+        </p>
+    </div>
+    
+    <script>
+        showToast()
+        function showToast() {
+            document.getElementById("toast").classList.remove("hidden");
+            setTimeout(function () {
+                document.getElementById("toast").classList.add("hidden");
+            }, 5000);
+        }
+    </script>
+
+    {% endfor %}
+{% endif %}

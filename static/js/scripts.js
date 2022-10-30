@@ -6,15 +6,15 @@ $(function() {
 
         var data = [];
 
-        $('#form_department').removeAttr('action')
+        // $('#form_department').removeAttr('action')
 
         $(this).closest('tr').find('td').each(function() {
             data.push($(this).text());
         });
 
+        $('#form_department').attr('action', '/department/'+ data[0] +'/update/')
         $('#id_name').val(data[1]).focus();
         $('#id_description').val(data[2]);
-        $('#form_update_department').attr('action', data[0])
         $('#btn_department').text('Update');
 
         $('#toggle_view_department_btn').show().attr('href', data[0] + '/read');
@@ -25,15 +25,13 @@ $(function() {
     $('#employee_tbl tbody tr').on('click',function() {
         var data = [];
 
-        $('#form_employee').removeAttr('action')
-
         $(this).closest('tr').find('td').each(function() {
             data.push($(this).text());
         });
 
+        $('#form_employee').attr('action', '/employee/'+ data[0] +'/update/')
         $('#id_name').val(data[1]).focus();
         $('#id_department').find("option:contains("+data[2]+")").attr('selected', true);
-        $('#form_employee').attr('action', data[0])
         $('#btn_employee').text('Update');
 
         $('#toggle_view_employee_btn').show().attr('href', data[0] + '/read');

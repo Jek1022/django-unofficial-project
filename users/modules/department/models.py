@@ -9,3 +9,8 @@ class Department(models.Model):
 
     class Meta:
         db_table = 'departments'
+        permissions = (
+            ('search_department', 'Can search department'),
+            ('print_department', 'Can print department'),
+            ('export_department', 'Can export department')
+        )

@@ -4,6 +4,11 @@ from users.modules.department.models import Department
 class Employee(models.Model):
     class Meta:
         db_table = 'employees'
+        permissions = (
+            ('search_employee', 'Can search employee'),
+            ('print_employee', 'Can print employee'),
+            ('export_employee', 'Can export employee')
+        )
 
     department = models.ForeignKey(Department, related_name='employees', on_delete=models.CASCADE)
     name = models.CharField(max_length=255)

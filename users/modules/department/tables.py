@@ -52,4 +52,4 @@ class DeptTable(tables.Table):
                 'class': 'text-clip px-6 py-4 text-sm font-medium text-gray-900'
             },
         }
-        empty_text = 'There are no departments yet.'
+        empty_text = 'There are no departments found.'

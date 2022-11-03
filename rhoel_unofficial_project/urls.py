@@ -18,6 +18,7 @@ from django.urls import path, include
 from django.views.generic.base import TemplateView
 from users.modules.department import views as department_views
 from users.modules.employee import views as employee_views
+from users.access_utilities import views as access_utilities_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,12 +26,19 @@ urlpatterns = [
     path('', TemplateView.as_view(template_name='user/home.html'), name='home'),
     path('__reload__/', include('django_browser_reload.urls')),
 
+    path('access-utilities/', access_utilities_views.access_utilities, name='access_utilities'),
+    path('access-utilities/create/', access_utilities_views.create_permission, name='create_permission'),
+
     path('department/', department_views.department, name='department'),
+    path('department/search/', department_views.search, name='search_department'),
     path('department/create/', department_views.create_department, name='add_department'),
     path('department/<int:id>/update/', department_views.update_department, name='update_department'),
     path('department/<int:id>/read/', department_views.view_department, name='view_department'),
     path('department/<int:id>/delete/', department_views.delete_department, name='delete_department'),
     path('department/<int:id>/delete/confirmed', department_views.delete_department_confirmed),
+    path('department/export/csv', department_views.export_department_csv, name='export_department_csv'),
+    path('department/export/pdf', department_views.export_department_pdf, name='export_department_pdf'),
+    path('department/export/get_pdf', department_views.get_pdf, name='get_pdf'),
 
     path('employee/', employee_views.employee, name='user_employee'),
     path('employee/create/', employee_views.create_employee, name='add_employee'),

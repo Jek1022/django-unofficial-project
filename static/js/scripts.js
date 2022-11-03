@@ -1,6 +1,14 @@
 $(function() {
 
     $('.pagination').addClass('flex space-x-4');
+    var getQueryParameter = window.location.search.substring(3);
+    if(getQueryParameter) { $('#search_department').val(getQueryParameter) }
+
+    $('#search_department').on('input', (e) => {
+        if(`${e.currentTarget.value}` === ""){
+            window.location.href = '/department/'
+        }
+    })
     
     $('#department_tbl tbody #edit_department').on('click',function() {
 

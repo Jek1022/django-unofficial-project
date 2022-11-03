@@ -27,24 +27,11 @@ TEMPLATE = '''
 
 class EmployeeTable(tables.Table):
 
-    id = tables.Column(attrs={
-        'th': {
-            'scope': 'col',
-            'class': 'text-sm font-medium text-gray-900 px-6 py-4 text-left'
-        }
-    })
-    name = tables.Column(attrs={
-        'th': {
-            'scope': 'col',
-            'class': 'text-sm font-medium text-gray-900 px-6 py-4 text-left'
-        }
-    })
-    department = tables.Column(attrs={
-        'th': {
-            'scope': 'col',
-            'class': 'text-sm font-medium text-gray-900 px-6 py-4 text-left'
-        }
-    })
+    id = tables.Column(
+        verbose_name='#'
+    )
+    name = tables.Column()
+    department = tables.Column()
     actions = tables.TemplateColumn(TEMPLATE)
 
     class Meta:
@@ -57,6 +44,10 @@ class EmployeeTable(tables.Table):
             'id': 'employee_tbl',
             'thead': {
                 'class': 'bg-white border-b'
+            },
+            'th': {
+                'scope': 'col',
+                'class': 'text-sm font-medium text-gray-900 px-6 py-4 text-left'
             },
             'td': {
                 'class': 'text-clip px-6 py-4 text-sm font-medium text-gray-900'

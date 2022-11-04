@@ -38,7 +38,7 @@ urlpatterns = [
     path('department/<int:id>/delete/confirmed', department_views.delete_department_confirmed),
     path('department/export/csv', department_views.export_department_csv, name='export_department_csv'),
     path('department/export/pdf', department_views.export_department_pdf, name='export_department_pdf'),
-    path('department/export/get_pdf', department_views.get_pdf, name='get_pdf'),
+    path('department/print', department_views.print_department_pdf, name='print_department_pdf'),
 
     path('employee/', employee_views.employee, name='user_employee'),
     path('employee/create/', employee_views.create_employee, name='add_employee'),

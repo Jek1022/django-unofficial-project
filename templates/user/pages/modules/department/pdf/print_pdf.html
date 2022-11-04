@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/index.min.css" />
+
+    <title>Print | Department</title>
+    <style>
+        h1 {
+            text-align: center;
+        }
+
+        td,
+        th {
+            font-size: large;
+            text-align: center;
+        }
+        @media print {
+            thead {display: table-header-group;}
+            tr    { page-break-inside:avoid; page-break-after:auto;  }
+        }
+    </style>
+</head>
+
+<body>
+    <p>Print date and time: {% now "SHORT_DATETIME_FORMAT" %}</p>
+    <h1>List of Departments</h1>
+    <div class="flex flex-col">
+        <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+            <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+                <div class="overflow-hidden">
+                    <table class="min-w-full border text-center">
+                        <!-- <thead class="border-b"> -->
+                            <tr class="border-b">
+                                <th scope="col" class="text-md font-medium text-gray-900 px-6 py-4 border-r">
+                                    Department Name
+                                </th>
+                                <th scope="col" class="text-md font-medium text-gray-900 px-6 py-4 border-r">
+                                    Description
+                                </th>
+                            </tr>
+                        <!-- </thead> -->
+                        <tbody>
+                            {% for department in departments %}
+                            <tr class="border-b">
+                                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border-r">
+                                    {{ department.name }}
+                                </td>
+                                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border-r">
+                                    {{ department.description }}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+
+</html>
+<script type="text/javascript">
+    
+    window.onload = print();
+</script>

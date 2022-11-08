@@ -7,11 +7,8 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/index.min.css" />
 
-    <title>Print | Department</title>
+    <title>Print | Employee</title>
     <style>
-        body {
-            padding: 8px 0 12px 0;
-        }
         h1 {
             text-align: center;
         }
@@ -21,16 +18,16 @@
             font-size: large;
             text-align: center;
         }
-
         @media print {
-         tr td  { page-break-before: always; page-break-inside:avoid; page-break-after: always;}
+            thead {display: table-header-group;}
+            tr, td { page-break-inside:avoid; page-break-after:auto;  }
         }
     </style>
 </head>
 
 <body>
     <p>Print date and time: {% now "SHORT_DATETIME_FORMAT" %}</p>
-    <h1>List of Departments</h1>
+    <h1>List of Employees</h1>
     <div class="flex flex-col">
         <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
@@ -39,21 +36,21 @@
                         <!-- <thead class="border-b"> -->
                             <tr class="border-b">
                                 <th scope="col" class="text-md font-medium text-gray-900 px-6 py-4 border-r">
-                                    Department Name
+                                    Employee Name
                                 </th>
                                 <th scope="col" class="text-md font-medium text-gray-900 px-6 py-4 border-r">
-                                    Description
+                                    Department
                                 </th>
                             </tr>
                         <!-- </thead> -->
                         <tbody>
-                            {% for department in departments %}
-                            <tr class="border-b" style="page-break-before: always; page-break-inside:avoid; page-break-after: always;">
+                            {% for employee in employees %}
+                            <tr class="border-b">
                                 <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border-r">
-                                    {{ department.name }}
+                                    {{ employee.name }}
                                 </td>
                                 <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border-r">
-                                    {{ department.description }}
+                                    {{ employee.department.name }}
                                 </td>
                             </tr>
                             {% endfor %}

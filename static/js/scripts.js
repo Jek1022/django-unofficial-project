@@ -2,11 +2,17 @@ $(function() {
 
     $('.pagination').addClass('flex space-x-4');
     var getQueryParameter = window.location.search.substring(3);
-    if(getQueryParameter) { $('#search_department').val(getQueryParameter) }
+    if(getQueryParameter && !getQueryParameter.includes('=')) { $('#search_department, #search_employee').val(getQueryParameter) }
 
     $('#search_department').on('input', (e) => {
         if(`${e.currentTarget.value}` === ""){
             window.location.href = '/department/'
+        }
+    })
+
+    $('#search_employee').on('input', (e) => {
+        if(`${e.currentTarget.value}` === ""){
+            window.location.href = '/employee/'
         }
     })
     

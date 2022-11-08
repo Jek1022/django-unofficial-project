@@ -32,6 +32,7 @@ class DeptTable(tables.Table):
     )
     name = tables.Column()
     description = tables.Column()
+    created_at = tables.Column()
     actions = tables.TemplateColumn(TEMPLATE)
     class Meta:
         row_attrs = {

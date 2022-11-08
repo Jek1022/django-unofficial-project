@@ -53,5 +53,5 @@ class EmployeeTable(tables.Table):
                 'class': 'text-clip px-6 py-4 text-sm font-medium text-gray-900'
             },
         }
-        empty_text = 'There are no employees yet.'
+        empty_text = 'There are no employees found.'
         

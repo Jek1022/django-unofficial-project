@@ -20,6 +20,10 @@ from users.modules.department import views as department_views
 from users.modules.employee import views as employee_views
 from users.access_utilities import views as access_utilities_views
 
+admin.site.site_header = "PDI Unofficial Project Admin"
+admin.site.site_title = "PDI Unofficial Project Admin Portal"
+admin.site.index_title = "Welcome to PDI Unofficial Project"
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
@@ -36,14 +40,22 @@ urlpatterns = [
     path('department/<int:id>/read/', department_views.view_department, name='view_department'),
     path('department/<int:id>/delete/', department_views.delete_department, name='delete_department'),
     path('department/<int:id>/delete/confirmed', department_views.delete_department_confirmed),
-    path('department/export/csv', department_views.export_department_csv, name='export_department_csv'),
-    path('department/export/pdf', department_views.export_department_pdf, name='export_department_pdf'),
-    path('department/print', department_views.print_department_pdf, name='print_department_pdf'),
+    path('department/export', department_views.export, name='department_export_page'),
+    path('department/export/csv', department_views.export_all_csv, name='department_export_all_csv'),
+    path('department/export/pdf', department_views.export_all_pdf, name='department_export_all_pdf'),
+    path('department/export/process', department_views.export_process, name='department_export_process'),
+    path('department/print', department_views.print, name='department_print_page'),
+    path('department/print/pdf', department_views.print_department_pdf, name='print_department_pdf'),
 
     path('employee/', employee_views.employee, name='user_employee'),
+    path('employee/search/', employee_views.search, name='search_employee'),
     path('employee/create/', employee_views.create_employee, name='add_employee'),
     path('employee/<int:id>/update/', employee_views.update_employee, name='update_employee'),
     path('employee/<int:id>/read/', employee_views.view_employee, name='view_employee'),
     path('employee/<int:id>/delete/', employee_views.delete_employee, name='delete_employee'),
     path('employee/<int:id>/delete/confirmed', employee_views.delete_employee_confirmed),
+    path('employee/export/csv', employee_views.export_employee_csv, name='export_employee_csv'),
+    path('employee/export/pdf', employee_views.export_employee_pdf, name='export_employee_pdf'),
+    path('employee/print', employee_views.print_employee_pdf, name='print_employee_pdf'),
 ]
+

@@ -129,13 +129,8 @@ def export_all_pdf(request):
 
     return response
 
-def print_department_pdf(request):
-    departments = Department.objects.all()
-    
-    return render(request, 'user/pages/modules/department/pdf/print_pdf.html', {'departments': departments})
 
 def export_process(request):
-
     from_date = request.POST['date_from']
     to_date = request.POST['date_to']
     try:
@@ -152,12 +147,13 @@ def export_process(request):
             else:
                 messages.warning(request, "Field 'Export As' is required.")
                 return redirect('/department/export')
+        else:
+            messages.warning(request, "Fields 'Date From & To' are required.")
+            return redirect('/department/')
     except:
         messages.warning(request, "There was a problem on your request. Hint: use yyyy-mm-dd format.")
         return redirect('/department/export')
-    else:
-        messages.warning(request, "Field 'Date From & To' is required.")
-        return redirect('/department/')
+
 
 def file_export_csv(request, from_date, to_date):
     response = HttpResponse(content_type='text/csv')
@@ -171,6 +167,7 @@ def file_export_csv(request, from_date, to_date):
         writer.writerow(department)
 
     return response
+
 
 def file_export_xls(request, from_date, to_date):
     response = HttpResponse(content_type='application/ms-excel')
@@ -199,6 +196,7 @@ def file_export_xls(request, from_date, to_date):
     work_book.save(response)
     return response
 
+
 def file_export_pdf(request, from_date, to_date):
     departments = Department.objects.filter(created_at__gte=from_date, created_at__lte=to_date)
     open('templates/user/pages/modules/department/pdf/pdf_temp.html', "w").write(render_to_string('./././pages/modules/department/pdf/export_pdf.html', {'departments': departments}))
@@ -206,8 +204,8 @@ def file_export_pdf(request, from_date, to_date):
     pdf = html_to_pdf('./././pages/modules/department/pdf/pdf_temp.html')
     response = HttpResponse(pdf, content_type='application/pdf')
     response['Content-Disposition'] = f'attachment; filename="List of Departments.pdf"'
-
     return response
+
 
 def file_export_txt(request, from_date, to_date):
     response = HttpResponse(content_type='text/plain')
@@ -219,8 +217,8 @@ def file_export_txt(request, from_date, to_date):
     departments = Department.objects.filter(created_at__gte=from_date, created_at__lte=to_date).values_list('name', 'description')
     for department in departments:
         writer.writerow(department)
-
     return response
+
 
 def print(request):
     permissioned = user_permission(request, 'print_department')
@@ -229,3 +227,34 @@ def print(request):
     else:
         messages.info(request, "You don’t have permission to print department.")
         return redirect('/department/')
+
+
+def print_all_pdf(request):
+    departments = Department.objects.all()
+    return render(request, 'user/pages/modules/department/pdf/print_pdf.html', {'departments': departments})
+
+
+def print_process(request):
+    from_date = request.POST['date_from']
+    to_date = request.POST['date_to']
+    try:
+        if from_date and to_date:
+            return file_print_default(request, from_date, to_date)
+        else:
+            messages.warning(request, "Fields 'Date From & To' are required.")
+            return redirect('/department/')
+    except:
+        messages.warning(request, "There was a problem on your request. Hint: use yyyy-mm-dd format.")
+        return redirect('/department/export')
+
+
+def file_print_default(request, from_date, to_date):
+    departments = Department.objects.filter(created_at__gte=from_date, created_at__lte=to_date)
+    return render(request, 'user/pages/modules/department/pdf/print_pdf.html', 
+        {
+            'departments': departments, 
+            'from_date': from_date,
+            'to_date': to_date
+        }
+    )
+    

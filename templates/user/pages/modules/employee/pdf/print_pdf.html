@@ -9,6 +9,9 @@
 
     <title>Print | Employee</title>
     <style>
+        body {
+            padding: 8px 0 12px 0;
+        }
         h1 {
             text-align: center;
         }
@@ -18,10 +21,9 @@
             font-size: large;
             text-align: center;
         }
-        @media print {
-            thead {display: table-header-group;}
-            tr, td { page-break-inside:avoid; page-break-after:auto;  }
-        }
+        
+        table { float:none !important;}
+        table tr  { page-break-before: always !important; page-break-after: avoid !important; page-break-inside:avoid !important; }
     </style>
 </head>
 
@@ -31,7 +33,7 @@
     <div class="flex flex-col">
         <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
-                <div class="overflow-hidden">
+                <div class="overflow-visible">
                     <table class="min-w-full border text-center">
                         <!-- <thead class="border-b"> -->
                             <tr class="border-b">

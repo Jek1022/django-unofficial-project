@@ -61,10 +61,14 @@
                                     class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border-r">
                                     {{ department.description }}
                                 </td>
-                                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                    {% for employee in department.employees.all %}
-                                        <p>{{ employee.name }}</p>
-                                    {% endfor %}
+                                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-pre-line">
+                                    {% if department.employees.all %}
+                                        <hr>
+                                        {% for employee in department.employees.all %}
+                                        <span> {{ employee.name }} </span><br>
+                                        {% endfor %}
+                                    {% endif %}
+                                    
                                 </td>
                             </tr>
                             {% endfor %}

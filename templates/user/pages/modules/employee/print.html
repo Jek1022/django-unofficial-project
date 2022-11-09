@@ -1,21 +1,20 @@
 {% extends 'base.html' %}
 {% load render_table from django_tables2 %}
-{% load humanize %}
 
-{% block title %}department{% endblock %}
+{% block title %}Employee{% endblock %}
 
 {% block content %}
 
 {% if user.is_authenticated %}
 
 {% include 'user/partials/nav.html' %}
-<!-- Department main content -->
+<!-- Employee main content -->
 <div class="p-2">
     <div class="ml-6">
         <ol class="list-reset flex">
             <li class="text-gray-500">Modules</li>
             <li><span class="text-gray-500 mx-2">/</span></li>
-            <li><a href="{% url 'department' %}" class="text-blue-600 hover:text-blue-700">Department</a></li>
+            <li><a href="{% url 'employee' %}" class="text-blue-600 hover:text-blue-700">Employee</a></li>
             <li><span class="text-gray-500 mx-2">/</span></li>
             <li class="text-gray-500">Print</li>
         </ol>
@@ -23,12 +22,12 @@
     {% include 'user/partials/toast-component.html' %}
     <div class="flex mt-4 justify-center">
         <div class="block p-6 rounded-lg shadow-lg bg-white w-4/5">
-            <h5 class="text-gray-900 text-md leading-tight text-center justify-center font-medium mb-3">Department Batch Print </h5>
+            <h5 class="text-gray-900 text-md leading-tight text-center justify-center font-medium mb-3">Employee Batch Print </h5>
             <p class="text-base font-light leading-relaxed mt-0 mb-4 text-gray-800 whitespace-normal">
-                This form is used to print departments data within a date range. Enter the fields <u>From</u> and <u>To</u>.
+                This form is used to print employees data within the employment date range. Enter the fields <u>From</u> and <u>To</u>.
                 <br />Click GO to begin printing.
             </p>
-            <form method="POST" action="{% url 'department_print_process' %}" target="_blank">
+            <form method="POST" action="{% url 'employee_print_process' %}" target="_blank">
                 {% csrf_token %}
                 <div class="flex items-center justify-center">
                     <div class="datepicker relative form-floating mb-3 xl:w-96" data-format="yyyy-mm-dd">
@@ -44,20 +43,6 @@
                             placeholder="yyyy-mm-dd" required />
                         <label for="floatingInput" class="text-gray-700">To</label>
                     </div>
-                    <!-- <div class="mx-4" id="toggle_export_as">
-                        <div class="flex justify-center">
-                            <div class="mb-3 w-fit">
-                                <select name="export_as" id="export_as" class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Export select" required>
-                                    <option selected disabled value="">Export As &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>
-                                    <option value="csv">CSV (.csv) file</option>
-                                    <option value="xls">XLS (.xls) file</option>
-                                    <option value="pdf">PDF (.pdf) file</option>
-                                    <option value="txt">Text (.txt) file</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div> -->
-                    
                 </div>
                 <div class="flex justify-end" id="go_btn">
                     <button type="submit" class="inline-block px-6 py-2.5 mx-2 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">Go</button>
@@ -69,7 +54,7 @@
                 <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
                         <div class="overflow-hidden">
-                            {% if departments %}
+                            {% if employees %}
                                 <table class="min-w-full border text-center">
                                     <thead class="border-b">
                                         <tr>
@@ -77,18 +62,15 @@
                                                 #
                                             </th>
                                             <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 border-r">
-                                                Department
+                                                Name
                                             </th>
                                             <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 border-r">
-                                                Description
-                                            </th>
-                                            <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4">
-                                                Employees
+                                                Department
                                             </th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {% for department in departments %}
+                                        {% for employee in employees %}
                                         <tr class="border-b">
                                             <td
                                                 class="px-6 py-4 whitespace-nowrap text-sm font-light text-gray-900 border-r">
@@ -96,16 +78,11 @@
                                             </td>
                                             <td
                                                 class="text-sm font-light text-gray-900 px-6 py-4 whitespace-nowrap border-r">
-                                                {{ department.name }}
+                                                {{ employee.name }}
                                             </td>
                                             <td
                                                 class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border-r">
-                                                {{ department.description }}
-                                            </td>
-                                            <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                                {% for employee in department.employees.all %}
-                                                    <p>{{ employee.name }}</p>
-                                                {% endfor %}
+                                                {{ employee.department }}
                                             </td>
                                         </tr>
                                         {% endfor %}
@@ -120,18 +97,6 @@
     </div>
 
 </div>
-
-<script>
-    // $(function() {
-    //     $('#file_action').on('change', function() {
-    //         if(this.value == 'export'){
-    //             $('#toggle_export_as').show()
-    //         } else {
-    //             $('#toggle_export_as').hide()
-    //         }
-    //     })
-    // });
-</script>
 
 {% else %}
 {% include 'user/pages/default-home.html' %}

@@ -32,6 +32,7 @@ class EmployeeTable(tables.Table):
     )
     name = tables.Column()
     department = tables.Column()
+    employed_at = tables.Column()
     actions = tables.TemplateColumn(TEMPLATE)
 
     class Meta:
